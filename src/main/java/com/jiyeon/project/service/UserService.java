@@ -11,18 +11,19 @@ import javax.persistence.Persistence;
 @Service
 public class UserService {
 
-    public void save(){
+    private EntityManagerFactory entityManagerFactory =
+            Persistence.createEntityManagerFactory("jpa-practice");
 
-        EntityManagerFactory entityManagerFactory =
-                Persistence.createEntityManagerFactory("jpa-practice");
+    private EntityManager em = entityManagerFactory.createEntityManager();
 
-        EntityManager em = entityManagerFactory.createEntityManager();
+    private EntityTransaction tx = em.getTransaction();
+
+    public void hibernateSave(){
 
         /**
          * hibernate 로 작성했을때는
          * 반드시 entityTransaction으로 커밋해줘야 db에 정상적으로 insert 된다.
          */
-        EntityTransaction tx = em.getTransaction();
 
         tx.begin();
         User user = new User();
@@ -33,7 +34,41 @@ public class UserService {
 
         em.persist(user);
         tx.commit();
+
     }
 
 
+    public void entityManager() {
+
+        tx.begin();
+
+        User user = new User();
+
+        user.setName("jiyeon");
+        user.setAge(29L);
+        user.setPhone("010123321");
+
+        em.persist(user);
+
+        Long findId = user.getId();
+
+        System.out.println("commit 이전 getName>>>");
+        System.out.println(em.find(User.class, findId).getName());
+
+        tx.commit();
+
+        System.out.println("commit ~ clear getName>>>");
+        System.out.println(em.find(User.class, findId).getName());
+
+        em.clear();
+
+        System.out.println("clear ~ close getName>>>");
+        System.out.println(em.find(User.class, findId).getName());
+
+        em.close();
+
+        System.out.println("close 이후 getName>>>");
+        System.out.println(em.find(User.class, findId).getName());
+
+    }
 }
