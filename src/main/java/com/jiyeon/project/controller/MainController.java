@@ -28,4 +28,16 @@ public class MainController {
         userService.entityManagerFlush();
         return "entity-manager-flush";
     }
+
+    @GetMapping("/entity-manager-detach")
+    public String entityManagerDetach(){
+        userService.entityManagerDetach();
+        return "entity-manager-detach";
+    }
+
+    @GetMapping("/entity-manager-merge")
+    public String entityManagerMerge(){
+        userService.entityManagerMerge();
+        return "entity-manager-merge";
+    }
 }

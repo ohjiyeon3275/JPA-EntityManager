@@ -101,4 +101,77 @@ public class UserService {
         System.out.println(em.find(User.class, findId).getName());
 
     }
+
+    public void entityManagerDetach() {
+
+        tx.begin();
+        User user = new User();
+
+        user.setName("detach test ~~");
+        user.setAge(111L);
+        user.setPhone("phone number");
+
+        em.persist(user);
+        Long findId = user.getId();
+
+        System.out.println(findId);
+        System.out.println(">>>findId");
+
+        em.detach(user);
+
+        System.out.println(findId);
+        System.out.println(">>>findId");
+        System.out.println("detach 이후 getName>>>");
+        System.out.println(em.find(User.class, findId).getName());
+
+
+//        em.persist(user);
+
+        System.out.println(findId);
+        System.out.println(">>>findId");
+
+//        System.out.println("다시 persist 이후 getName>>>");
+//        System.out.println(em.find(User.class, findId).getName());
+
+        tx.commit();
+        em.close();
+    }
+
+    public void entityManagerMerge() {
+
+        EntityManager em1 = entityManagerFactory.createEntityManager();
+        EntityTransaction tx1 = em1.getTransaction();
+
+        tx1.begin();
+        User user = new User();
+
+        user.setName("before merge name ~~");
+        user.setAge(1L);
+        user.setPhone("phone 1 number");
+
+        em1.persist(user);
+
+        tx1.commit();
+        em1.close();
+
+        user.setName("merge test set name");
+
+        EntityManager em2 = entityManagerFactory.createEntityManager();
+        EntityTransaction tx2 = em2.getTransaction();
+
+        tx2.begin();
+        System.out.println(">>>>load>>>>>");
+        User newUser = em2.merge(user);
+
+        System.out.println(">>>>new user persist ");
+        em2.persist(newUser);
+        tx2.commit();
+
+        System.out.println(newUser.getName());
+        System.out.println(">>> new User getName");
+
+        System.out.println(newUser.getPhone());
+        System.out.println(">>> new User getPhone");
+
+    }
 }
