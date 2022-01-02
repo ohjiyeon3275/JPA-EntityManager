@@ -2,36 +2,30 @@ package com.jiyeon.project.controller;
 
 import com.jiyeon.project.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @AllArgsConstructor
 public class MainController {
 
     private final UserService userService;
 
     @GetMapping("/hibernate-save")
-    public ModelAndView hibernateSave(){
-
-        ModelAndView mv = new ModelAndView();
+    public String hibernateSave(){
         userService.hibernateSave();
-
-        mv.setViewName("main.html");
-        return mv;
-
+        return "hibernate-save";
     }
 
     @GetMapping("/entity-manager")
-    public ModelAndView entityManager(){
-
-        ModelAndView mv = new ModelAndView();
+    public String entityManager(){
         userService.entityManager();
-
-        mv.setViewName("main.html");
-        return mv;
-
+        return "entity-manager";
     }
 
+    @GetMapping("/entity-manager-flush")
+    public String entityManagerFlush(){
+        userService.entityManagerFlush();
+        return "entity-manager-flush";
+    }
 }

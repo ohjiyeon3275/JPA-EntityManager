@@ -11,11 +11,9 @@ import javax.persistence.Persistence;
 @Service
 public class UserService {
 
-    private EntityManagerFactory entityManagerFactory =
-            Persistence.createEntityManagerFactory("jpa-practice");
+    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("jpa-practice");
 
     private EntityManager em = entityManagerFactory.createEntityManager();
-
     private EntityTransaction tx = em.getTransaction();
 
     public void hibernateSave(){
@@ -39,7 +37,6 @@ public class UserService {
 
 
     public void entityManager() {
-
         tx.begin();
 
         User user = new User();
@@ -63,6 +60,39 @@ public class UserService {
         em.clear();
 
         System.out.println("clear ~ close getName>>>");
+        System.out.println(em.find(User.class, findId).getName());
+
+        em.close();
+
+        System.out.println("close 이후 getName>>>");
+        System.out.println(em.find(User.class, findId).getName());
+
+    }
+
+    public void entityManagerFlush() {
+
+        tx.begin();
+        User user = new User();
+
+        user.setName("happy new year 2022");
+        user.setAge(10L);
+        user.setPhone("1234321");
+
+        em.persist(user);
+
+        Long findId = user.getId();
+
+        System.out.println("flush 이전 getName>>>");
+        System.out.println(em.find(User.class, findId).getName());
+
+        em.flush();
+
+        System.out.println("flush  ~ commit getName>>>");
+        System.out.println(em.find(User.class, findId).getName());
+
+        tx.commit();
+
+        System.out.println("commit  ~ close getName>>>");
         System.out.println(em.find(User.class, findId).getName());
 
         em.close();
