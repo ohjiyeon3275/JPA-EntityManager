@@ -1,5 +1,6 @@
 package com.jiyeon.project.service;
 
+import com.jiyeon.project.domain.Seat;
 import com.jiyeon.project.domain.User;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,7 @@ public class UserService {
          */
 
         tx.begin();
+        Seat seat = new Seat();
         User user = new User();
 
         user.setAge(99L);

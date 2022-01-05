@@ -12,7 +12,6 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @Column(name ="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -24,5 +23,9 @@ public class User {
 
     @Column(name = "phone")
     private String phone;
+
+    @OneToOne
+    @JoinColumn(name = "seat_id")
+    private Seat seat;
 
 }
