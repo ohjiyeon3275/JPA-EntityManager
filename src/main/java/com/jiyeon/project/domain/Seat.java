@@ -12,7 +12,6 @@ import javax.persistence.*;
 public class Seat {
 
     @Id
-//    @Column(name="seat_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -21,5 +20,8 @@ public class Seat {
 
     @Column(name = "col_Val")
     private String colVal;
+
+    @OneToOne(mappedBy = "seat")
+    private User user;
 
 }
