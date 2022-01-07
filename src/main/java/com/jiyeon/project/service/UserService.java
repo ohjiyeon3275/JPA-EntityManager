@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.Arrays;
 
 @Service
 public class UserService {
@@ -174,6 +175,34 @@ public class UserService {
 
         System.out.println(newUser.getPhone());
         System.out.println(">>> new User getPhone");
+
+    }
+
+
+    public void oneToMany(){
+        tx.begin();
+
+        Seat seat1 = new Seat();
+        Seat seat2 = new Seat();
+
+        User user1 = new User();
+        User user2 = new User();
+        User user3 = new User();
+
+
+
+        //builder x setter o 인 경우?
+        seat1.setRowNum(1L);
+        seat1.setColVal("col1");
+
+        seat2.setRowNum(2L);
+        seat2.setColVal("col2");
+
+        em.persist(user1.builder().name("유저1").age(1L).phone("123").seat(seat1).build());
+        em.persist(user2.builder().name("유저2").age(2L).phone("456").seat(seat2).build());
+        em.persist(user3.builder().name("유저3").age(3L).phone("789").seat(seat1).build());
+
+        tx.commit();
 
     }
 }

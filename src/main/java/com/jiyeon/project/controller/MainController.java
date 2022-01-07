@@ -2,6 +2,7 @@ package com.jiyeon.project.controller;
 
 import com.jiyeon.project.domain.Seat;
 import com.jiyeon.project.domain.User;
+import com.jiyeon.project.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,13 +11,22 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class MainController {
 
+    private final UserService userService;
+
     @GetMapping("/main")
     public String main(){
 
-
         return "main";
     }
-//    private final UserService userService;
+
+    @GetMapping("/one-to-many")
+    public String ontToMany(){
+        userService.oneToMany();
+
+        return "one-to-many";
+    }
+
+
 //
 //    @GetMapping("/hibernate-save")
 //    public String hibernateSave(){

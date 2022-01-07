@@ -1,13 +1,17 @@
 package com.jiyeon.project.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "seats")
 public class Seat {
 
@@ -20,5 +24,15 @@ public class Seat {
 
     @Column(name = "col_Val")
     private String colVal;
+
+    @OneToMany(mappedBy = "seat" , cascade = CascadeType.ALL)
+    private List<User> users = new ArrayList<>();
+
+    public void addUser(User user){
+        this.users.add(user);
+        if(user.getSeat()!=this){
+            user.setSeat(this);
+        }
+    }
 
 }

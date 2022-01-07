@@ -1,13 +1,15 @@
 package com.jiyeon.project.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
 
@@ -24,8 +26,14 @@ public class User {
     @Column(name = "phone")
     private String phone;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "seat_id")
     private Seat seat;
 
+    public void setSeats(Seat seat){
+        this.seat = seat;
+        if(!seat.getUsers().contains(this)){
+            seat.getUsers().add(this);
+        }
+    }
 }
