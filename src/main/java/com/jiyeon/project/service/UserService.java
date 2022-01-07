@@ -26,8 +26,9 @@ public class UserService {
          */
 
         tx.begin();
-        Seat seat = new Seat();
         User user = new User();
+
+        Seat seat = new Seat();
 
         user.setAge(99L);
         user.setName("em test");
@@ -179,30 +180,9 @@ public class UserService {
     }
 
 
-    public void oneToMany(){
-        tx.begin();
 
-        Seat seat1 = new Seat();
-        Seat seat2 = new Seat();
+    public void manyToOne() {
 
-        User user1 = new User();
-        User user2 = new User();
-        User user3 = new User();
-
-
-
-        //builder x setter o 인 경우?
-        seat1.setRowNum(1L);
-        seat1.setColVal("col1");
-
-        seat2.setRowNum(2L);
-        seat2.setColVal("col2");
-
-        em.persist(user1.builder().name("유저1").age(1L).phone("123").seat(seat1).build());
-        em.persist(user2.builder().name("유저2").age(2L).phone("456").seat(seat2).build());
-        em.persist(user3.builder().name("유저3").age(3L).phone("789").seat(seat1).build());
-
-        tx.commit();
 
     }
 }

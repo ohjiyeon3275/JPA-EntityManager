@@ -20,12 +20,18 @@ public class MainController {
     }
 
     @GetMapping("/one-to-many")
-    public String ontToMany(){
-        userService.oneToMany();
+    public String oneToMany(){
+//        userService.oneToMany();
 
         return "one-to-many";
     }
 
+    @GetMapping("/many-to-one")
+    public String manyToOne(){
+        userService.manyToOne();
+
+        return "many-to-one";
+    }
 
 //
 //    @GetMapping("/hibernate-save")

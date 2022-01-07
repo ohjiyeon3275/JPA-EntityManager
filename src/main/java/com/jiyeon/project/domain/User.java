@@ -26,14 +26,4 @@ public class User {
     @Column(name = "phone")
     private String phone;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "seat_id")
-    private Seat seat;
-
-    public void setSeats(Seat seat){
-        this.seat = seat;
-        if(!seat.getUsers().contains(this)){
-            seat.getUsers().add(this);
-        }
-    }
 }

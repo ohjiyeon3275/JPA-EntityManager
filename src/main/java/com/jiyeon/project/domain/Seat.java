@@ -25,14 +25,8 @@ public class Seat {
     @Column(name = "col_Val")
     private String colVal;
 
-    @OneToMany(mappedBy = "seat" , cascade = CascadeType.ALL)
+    @JoinColumn(name="seat_id")
+    @OneToMany
     private List<User> users = new ArrayList<>();
-
-    public void addUser(User user){
-        this.users.add(user);
-        if(user.getSeat()!=this){
-            user.setSeat(this);
-        }
-    }
 
 }
