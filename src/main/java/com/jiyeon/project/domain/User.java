@@ -24,7 +24,7 @@ public class User {
     @Column(name = "phone")
     private String phone;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "seat_id")
     private Seat seat;
 

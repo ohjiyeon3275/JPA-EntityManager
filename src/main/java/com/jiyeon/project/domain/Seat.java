@@ -21,7 +21,4 @@ public class Seat {
     @Column(name = "col_Val")
     private String colVal;
 
-    @OneToOne(mappedBy = "seat")
-    private User user;
-
 }
