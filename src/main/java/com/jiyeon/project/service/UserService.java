@@ -61,15 +61,15 @@ public class UserService {
         System.out.println("commit ~ clear getName>>>");
         System.out.println(em.find(User.class, findId).getName());
 
-        em.clear();
+//        em.clear();
+//
+//        System.out.println("clear ~ close getName>>>");
+//        System.out.println(em.find(User.class, findId).getName());
 
-        System.out.println("clear ~ close getName>>>");
-        System.out.println(em.find(User.class, findId).getName());
+//        em.close();
 
-        em.close();
-
-        System.out.println("close 이후 getName>>>");
-        System.out.println(em.find(User.class, findId).getName());
+//        System.out.println("close 이후 getName>>>");
+//        System.out.println(em.find(User.class, findId).getName());
 
     }
 
@@ -180,9 +180,12 @@ public class UserService {
     }
 
 
+    public void getProxy() {
 
-    public void manyToOne() {
+        //proxy 생성
+        User user = em.getReference(User.class, 1L);
 
-
+        // proxy --> 실제클래스와 겉 모양이 같다.
+        user.getName();
     }
 }

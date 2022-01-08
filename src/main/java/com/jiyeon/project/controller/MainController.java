@@ -16,24 +16,19 @@ public class MainController {
     @GetMapping("/main")
     public String main(){
 
+        userService.entityManager();
         return "main";
     }
 
-    @GetMapping("/one-to-many")
-    public String oneToMany(){
-//        userService.oneToMany();
+    @GetMapping("/proxy")
+    public String getProxy(){
 
-        return "one-to-many";
+        userService.getProxy();
+
+        return "proxy";
     }
 
-    @GetMapping("/many-to-one")
-    public String manyToOne(){
-        userService.manyToOne();
 
-        return "many-to-one";
-    }
-
-//
 //    @GetMapping("/hibernate-save")
 //    public String hibernateSave(){
 //        userService.hibernateSave();
